@@ -1,0 +1,130 @@
+/* 온라인 하우징 */
+
+.knowhow-item .image { 
+    position: relative; 
+    overflow: hidden;
+    width: 100%;
+    height: 250px;
+}
+
+.knowhow-item .image::before,
+.knowhow-item .image::after {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    z-index: 1;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.2em;
+    border-top: 2px solid #eee;
+    white-space: nowrap;
+    width: 20px;
+    padding-top: 0.25em;
+    transition: 0.5s;
+}
+
+.knowhow-item .image::before { content: 'Before'; }
+.knowhow-item .image::after { content: 'After'; opacity: 0; color: #f6ba5e; border-color: #f6ba5e; }
+
+.knowhow-item:hover .image::before { opacity: 0; }
+.knowhow-item:hover .image::after { opacity: 1; }
+
+.knowhow-item img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.knowhow-item .after {
+    transform: translateX(100%);
+    transition: 0.5s;
+}
+
+.knowhow-item .image:hover .after {
+    transform: translateX(0);   
+}
+
+/* /온라인 하우징 */
+
+/* 전문가 소개 */
+.special-item {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+.special-item > .inner {
+    width: 100%;
+    height: 350px;
+    background-color: #ddd;
+    transition: transform 1s;
+}
+@media(max-width: 768px) {
+    .special-item > .inner {
+        height: 400px;
+    }   
+}
+
+.special-item .front, .special-item .back {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.special-item .back {
+    background-color: #fed557;
+    transform: rotate3d(0, 1, 0, 180deg);
+    z-index: -1;
+    transition-delay: 0.25s;
+}
+
+.special-item:hover .inner { transform: rotate3d(0, 1, 0, 180deg); }
+.special-item:hover .back { z-index: 0; }
+
+.special-item .more {
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+    width: 40px;
+    height: 40px;
+}
+
+.special-item .more span {
+    position: absolute;
+    display: block;
+    margin-top: calc(40px / 2);
+    height: 1px;
+    width: 40px;
+    background-color: #333;
+}
+
+.special-item .more span:first-child { transform: rotate(90deg); }
+
+/* /전문가 소개 */
+
+
+/* 전문가 시공 후기 */
+.review-item { display: flex; border: 1px solid #ddd; padding: 1em; }
+.review-item img {
+    flex: 0 0 200px;
+    max-width: 200px;
+    height: 230px;
+    object-fit: cover;
+}
+
+.review-item .content {
+    flex: 0 0 calc(100% - 200px);
+    max-width: calc(100% - 200px);
+}
+
+@media(max-width: 776px){
+    .review-item .content {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+/* /전문가 시공 후기 */
