@@ -21,7 +21,6 @@ class App {
         viewList.forEach(product => product.init());
 
         let regex = new RegExp(this.keyword, "g");
-        console.log(regex);
 
         if(this.keyword !== "")
             viewList = viewList.filter(item => regex.test(item.product_name) || regex.test(item.brand))
