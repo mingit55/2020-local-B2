@@ -34,7 +34,7 @@ class Product {
                                 <div class="d-between align-items-end mt-3 px-2">
                                     <div class="text-black">
                                         <div class="text-muted fx-n1 brand">${brand}</div>
-                                        <div class="fx-4 font-weight-bold product_name">${product_name}</div>
+                                        <div class="fx-3 font-weight-bold product_name">${product_name}</div>
                                     </div>
                                     <div class="text-deepgold">
                                         <span class="text-muted fx-2 mr-2">￦</span>

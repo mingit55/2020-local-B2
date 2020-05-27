@@ -99,8 +99,62 @@ class App {
 
 
 
-        $(".buy-btn").on("click", e => {
+        // # 구매하기 -> 구매 내역 출력
+        $("#buy-modal form").on("submit", e => {
+            e.preventDefault();
+            $("#buy-modal").modal('hide');
+            const now = new Date();
+
+            const padding = 30;
+            const textGap = 10;
+            const titleGap = 50;
+            const fontSize = 15;
+            const titleSize = 20;
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d");
+            
+            canvas.width = 450;
+            canvas.height = padding * 2 + titleSize + titleGap;
+
+            let w_cursor = padding + titleSize + titleGap;
+            let drawList = [];
+            let purchaseList = this.cartList.map(item => ({key: item.init_data.product_name, value: `${item.price.toLocaleString()} × ${item.buyCount} = ${(item.price * item.buyCount).toLocaleString()}`}));
+            let totalPrice = this.cartList.reduce((p, c) => p + c.buyCount * c.price, 0);
+            [
+                ...purchaseList,
+                {key: "구매일시", value: `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`},
+                {key: "총 합계", value: "￦ " + totalPrice.toLocaleString()},
+            ].forEach(({key, value}) => {
+                ctx.font = `${fontSize}px 나눔스퀘어, sans-serif`;
+                let ms = ctx.measureText(value);
+                let x = canvas.width - padding - ms.width;
+                let y = w_cursor;
+
+                w_cursor += fontSize + textGap;
+
+                drawList.push({key, value, x, y});
+            });
+            canvas.height = w_cursor + padding;
+
+
+            ctx.fillStyle = "#fff";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#d6912a";
+            ctx.font = `${titleSize}px 나눔스퀘어, sans-serif`;
+            ctx.fillText("구매 내역", padding, padding + titleSize);
+
+
+            drawList.forEach(({key, value, x, y}) => {
+                ctx.font = `${fontSize}px 나눔스퀘어, sans-serif`;
+                ctx.fillStyle = "#333";
                 
+                ctx.fillText(key, padding, y);
+                ctx.fillText(value, x, y);
+            });
+
+            const src = canvas.toDataURL('image/jpeg');
+            $("#purchase-modal img").attr("src", src);
+            $("#purchase-modal").modal('show');
         });
     }
 }

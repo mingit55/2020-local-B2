@@ -46,7 +46,7 @@
     border-radius: 10px;
     transform: translateY(-50px);
     opacity: 0;
-    transition: 0.5s;
+    transition: 0.2s;
     pointer-events: none;
 }
 
