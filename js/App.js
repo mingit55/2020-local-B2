@@ -1,5 +1,6 @@
 class App {
     cartList = [];
+    keyword = "";
     constructor(){
         this.$storeBox = $("#store-box");
         this.$cartBox = $("#cart-box");
@@ -19,6 +20,17 @@ class App {
         let viewList = this.products;
         viewList.forEach(product => product.init());
 
+        let regex = new RegExp(this.keyword, "g");
+        console.log(regex);
+
+        if(this.keyword !== "")
+            viewList = viewList.filter(item => regex.test(item.product_name) || regex.test(item.brand))
+                .map(item => {
+                    item.product_name = item.product_name.replace(regex, m1 => `<span class='bg-gold text-black'>${m1}</span>`);
+                    item.brand = item.brand.replace(regex, m1 => `<span class='bg-gold text-black'>${m1}</span>`);
+                    return item;
+                });
+
         this.$storeBox.html("");
         if(viewList.length > 0){
             viewList.forEach(product => {
@@ -27,7 +39,7 @@ class App {
             });
         }
         else {
-            this.$storeBox.html("<div class='text-center py-5 text-muted'>일치하는 상품이 없습니다.</div>");
+            this.$storeBox.html("<div class='col-12 text-center py-5 text-muted'>일치하는 상품이 없습니다.</div>");
         }
     }
 
@@ -155,6 +167,28 @@ class App {
             const src = canvas.toDataURL('image/jpeg');
             $("#purchase-modal img").attr("src", src);
             $("#purchase-modal").modal('show');
+        });
+
+
+        // 검색창
+        $(".search input").on("input", e => {
+            this.keyword = e.target.value
+                .replace(/([\\\\\\/\^\$\[\]\(\)\.+*?])/g, "\\$1")
+                .replace(/(ㄱ)/g, "([가-깋])")
+                .replace(/(ㄴ)/g, "([나-닣])")
+                .replace(/(ㄷ)/g, "([다-딯])")
+                .replace(/(ㄹ)/g, "([라-맇])")
+                .replace(/(ㅁ)/g, "([마-밓])")
+                .replace(/(ㅂ)/g, "([바-빟])")
+                .replace(/(ㅅ)/g, "([사-싷])")
+                .replace(/(ㅇ)/g, "([아-잏])")
+                .replace(/(ㅈ)/g, "([자-짛])")
+                .replace(/(ㅊ)/g, "([차-칳])")
+                .replace(/(ㅋ)/g, "([카-킿])")
+                .replace(/(ㅌ)/g, "([타-팊])")
+                .replace(/(ㅍ)/g, "([파-핗])")
+                .replace(/(ㅎ)/g, "([하-힣])");
+            this.updateStore();
         });
     }
 }

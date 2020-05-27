@@ -22,7 +22,7 @@ p { line-height: 1.6em; word-break: keep-all; }
 .text-yellow { color: #f1c12e; }
 
 .text-deepgold { color: #d6912a; }
-.bg-deepgold { color: #d6912a; }
+.bg-deepgold { background-color: #d6912a; }
 
 .text-black { color: #333; }
 .bg-black { background-color: #333; }
